@@ -20,6 +20,9 @@
   --wrap: 1200px;
   --gutter: clamp(20px, 5vw, 56px);
   --nav-h: 58px;
+
+  /* Shared height for every sponsor logo; widths follow each mark's own ratio. */
+  --logo-h: clamp(46px, 4.4vw, 60px);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -75,8 +78,27 @@ a { color: inherit; }
   max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter);
   height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; gap: 1rem;
 }
-.nav__mark { font-family: var(--serif); font-size: 1.15rem; font-weight: 600; text-decoration: none; letter-spacing: -0.01em; }
-.nav__mark span { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--slate); margin-left: 0.4rem; }
+.nav__mark {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-family: var(--serif); font-size: 1.15rem; font-weight: 600;
+  text-decoration: none; letter-spacing: -0.01em;
+}
+.nav__word span { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--slate); margin-left: 0.4rem; }
+
+/* The AISE logo carries its full name in four lines of type, which would be
+   unreadable at nav height. This window shows only the head mark: the artwork
+   is 5400 x 2400 and the mark occupies roughly 3%-24.5% of its width, so at a
+   38px height (85.5px full width) it starts 2.6px in and runs about 19px. */
+.nav__logo {
+  display: block; flex: none;
+  width: 20px; height: 38px;
+  overflow: hidden;
+}
+.nav__logo img {
+  display: block;
+  height: 38px; width: auto; max-width: none;
+  margin-left: -2.6px;
+}
 
 .nav__menu { display: flex; gap: clamp(0.8rem, 1.8vw, 1.6rem); }
 .nav__menu a {
@@ -110,11 +132,21 @@ a { color: inherit; }
 }
 .hero__title em { font-style: italic; font-weight: 400; }
 
+/* The school's full name, under the event title. */
+.hero__sub {
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 1.9vw, 1.5rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin: clamp(1rem, 2vw, 1.5rem) 0 0;
+  max-width: 36ch;
+}
+
 .hero__theme {
   font-size: clamp(1.05rem, 1.5vw, 1.3rem);
   color: var(--slate);
   max-width: 48ch;
-  margin: clamp(1.5rem, 3vw, 2rem) 0 0;
+  margin: clamp(1.25rem, 2.5vw, 1.75rem) 0 0;
 }
 
 .datemark {
@@ -349,9 +381,28 @@ a { color: inherit; }
 /* Every mark sits at one fixed height; width follows its own ratio. */
 .logo {
   display: block;
-  height: clamp(46px, 4.4vw, 60px);
+  height: var(--logo-h);
   width: auto;
   max-width: 100%;
+}
+
+/* The Monash file is a 300 x 300 canvas holding a wide lockup that occupies
+   only (13,109)-(287,190) of it — 91% of the width but 27% of the height. Sized
+   like the others its mark would render about 15px tall, so the transparent
+   padding is clipped and the artwork itself is set to the shared height. */
+.logo-crop {
+  display: block;
+  overflow: hidden;
+  height: var(--logo-h);
+  width: calc(var(--logo-h) * 274 / 81);
+}
+.logo-crop img {
+  display: block;
+  height: calc(var(--logo-h) * 300 / 81);
+  width: auto;
+  max-width: none;
+  margin-left: calc(var(--logo-h) * -13 / 81);
+  margin-top: calc(var(--logo-h) * -109 / 81);
 }
 
 /* ------------------------------------------------------------- footer */
@@ -392,7 +443,7 @@ a { color: inherit; }
 
 @media (max-width: 760px) {
   .nav__toggle { display: block; }
-  .nav__mark span { display: none; }
+  .nav__word span { display: none; }
   .nav__menu {
     position: absolute; top: var(--nav-h); left: 0; right: 0; background: var(--paper);
     border-bottom: 1px solid var(--navy); flex-direction: column; gap: 0;
@@ -413,7 +464,6 @@ a { color: inherit; }
   .people, .people--org { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .people > li:nth-child(even), .people--org > li:nth-child(3n + 2) { margin-top: 0; }
   .quad { grid-template-columns: 1fr; }
-  .gallery { grid-template-columns: 1fr; }
   .logos li { flex: 1 1 40%; }
   .logos a { width: 100%; }
   .foot__inner { grid-template-columns: 1fr; }
