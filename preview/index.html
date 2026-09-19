@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AISE 2027 — design variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#15171B; --dim:#666D78; --rule:#DEDED8; --paper:#FAFAF7; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.6;
+    padding: clamp(2rem, 6vw, 5rem) clamp(20px, 5vw, 56px);
+  }
+  .wrap { max-width: 1100px; margin-inline: auto; }
+  h1 { font-size: clamp(1.5rem, 3vw, 2.2rem); letter-spacing: -0.03em; margin: 0 0 0.5rem; }
+  .sub { font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; color: var(--dim); margin: 0 0 2.5rem; }
+  ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  li { background: var(--paper); padding: clamp(1.25rem, 3vw, 2rem); display: grid; grid-template-columns: 9rem minmax(0,1fr) 7rem; gap: 1.5rem; align-items: start; }
+  .swatch { display: flex; height: 100%; min-height: 84px; border: 1px solid var(--ink); }
+  .swatch span { flex: 1; }
+  h2 { font-size: 1.1rem; margin: 0 0 0.35rem; letter-spacing: -0.01em; }
+  h2 em { font-style: normal; font-weight: 400; font-size: 0.8rem; color: var(--dim); }
+  code { font-family: "IBM Plex Mono", monospace; font-size: 0.85em; }
+  p.note { margin: 0; color: var(--dim); font-size: 0.93rem; max-width: 60ch; }
+  .tags { font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; color: var(--dim); margin-top: 0.6rem; letter-spacing: 0.04em; }
+  a.open {
+    font-family: "IBM Plex Mono", monospace; font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 0.1em; text-decoration: none; border: 1px solid var(--ink);
+    padding: 0.6rem 0.9rem; display: block; text-align: center; color: var(--ink);
+  }
+  a.open:hover { background: var(--ink); color: var(--paper); }
+  footer { margin-top: 2.5rem; font-family: "IBM Plex Mono", monospace; font-size: 0.75rem; color: var(--dim); }
+  footer a { color: var(--ink); }
+  @media (max-width: 720px) { li { grid-template-columns: 1fr; } .swatch { min-height: 48px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>AISE 2027 — design directions</h1>
+  <p class="sub">same content, same section order (as per the webpage-information document) — only the visual language differs</p>
+
+  <ul>
+    <li>
+      <div class="swatch" aria-hidden="true">
+        <span style="background:#F2EFE4"></span><span style="background:#16264A"></span><span style="background:#E0332F"></span>
+      </div>
+      <div>
+        <h2>A — Riso print poster <em>&mdash; live site</em></h2>
+        <p class="note">Two inks on newsprint. Navy and crimson overprint with multiply blending, halftone dot texture, Anton display type at poster scale, a rotated spine label down the left edge, hard offset shadows on buttons. This is what the site now serves at its root.</p>
+        <p class="tags">newsprint #F2EFE4 · navy #16264A · crimson #E0332F · Anton + Archivo + Plex Mono</p>
+      </div>
+      <a class="open" href="../">Open</a>
+    </li>
+
+    <li>
+      <div class="swatch" aria-hidden="true">
+        <span style="background:#E8EFF3"></span><span style="background:#10233A"></span><span style="background:#B5642A"></span>
+      </div>
+      <div>
+        <h2>B — Winter / glacier editorial <em>&mdash; kept as an alternative</em></h2>
+        <p class="note">Seasonal and magazine-like. Fraunces serif display with an italic second line, a giant 04—13 date motif with the second numeral outlined, two-column body text with a drop cap, a pull quote, cold wash and faint grain.</p>
+        <p class="tags">ice #E8EFF3 · navy #10233A · amber #B5642A · Fraunces + Archivo + Plex Mono</p>
+      </div>
+      <a class="open" href="glacier/">Open</a>
+    </li>
+  </ul>
+
+  <footer>
+    <p>Riso is now the live site at the repository root. Glacier is kept here as a
+    working alternative — it shares <code>preview/shared/main.js</code> but has its
+    own stylesheet, so changing one never affects the other.</p>
+  </footer>
+</div>
+</body>
+</html>

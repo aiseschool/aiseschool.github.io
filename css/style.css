@@ -1,0 +1,528 @@
+/* ==========================================================================
+   AISE Winter School 2027 — stylesheet
+   Riso print poster: two inks (navy + crimson) on newsprint, halftone dots,
+   overprint via mix-blend-mode, deliberate misregistration on display type.
+   Edit the tokens below to reskin the whole site.
+   ========================================================================== */
+
+:root {
+  --paper:   #F2EFE4;
+  --paper-2: #E8E3D3;
+  --navy:    #16264A;
+  --crimson: #E0332F;
+  --mute:    #5C6076;
+
+  --sans: "Archivo", Helvetica, Arial, sans-serif;
+  --display: "Anton", "Archivo", Impact, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+  --wrap: 1240px;
+  --gutter: clamp(20px, 5vw, 56px);
+  --nav-h: 56px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--navy);
+  font-family: var(--sans);
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.08rem);
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 { margin: 0; line-height: 1.05; }
+p { margin: 0 0 1rem; }
+p:last-child { margin-bottom: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; }
+
+:focus-visible { outline: 2px solid var(--crimson); outline-offset: 3px; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--navy); color: var(--paper); padding: 0.75rem 1rem;
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.skip:focus { left: 0; }
+
+.wrap {
+  width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter);
+}
+
+/* ------------------------------------------------- paper grain overlay */
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    radial-gradient(rgba(22, 38, 74, 0.16) 0.5px, transparent 0.6px),
+    radial-gradient(rgba(224, 51, 47, 0.10) 0.5px, transparent 0.6px);
+  background-size: 3px 3px, 4px 4px;
+  background-position: 0 0, 1px 2px;
+  mix-blend-mode: multiply;
+}
+
+/* ------------------------------------------------------ rotated spine */
+
+.spine {
+  position: fixed;
+  left: 10px;
+  top: 55%;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  margin: 0;
+  z-index: 30;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--crimson);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------- nav */
+
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--paper);
+  border-bottom: 2px solid var(--navy);
+}
+.nav__inner {
+  max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter);
+  height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.nav__mark {
+  font-family: var(--display); font-size: 1.35rem; letter-spacing: 0.02em;
+  text-decoration: none; text-transform: uppercase;
+}
+.nav__mark span { color: var(--crimson); }
+
+.nav__menu { display: flex; gap: clamp(0.75rem, 1.7vw, 1.5rem); }
+.nav__menu a {
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em;
+  text-transform: uppercase; text-decoration: none; color: var(--mute);
+  padding: 0.3rem 0; border-bottom: 2px solid transparent;
+}
+.nav__menu a:hover { color: var(--navy); }
+.nav__menu a.is-active { color: var(--crimson); border-bottom-color: var(--crimson); }
+
+.nav__toggle {
+  display: none; background: var(--crimson); color: var(--paper);
+  border: 2px solid var(--navy); font-family: var(--mono); font-size: 0.7rem;
+  letter-spacing: 0.1em; text-transform: uppercase; padding: 0.45rem 0.8rem; cursor: pointer;
+}
+
+/* --------------------------------------------------------------- hero */
+
+.hero { position: relative; overflow: hidden; padding-top: clamp(2.5rem, 7vw, 5rem); }
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  opacity: 0.85;
+}
+.blob--a {
+  width: min(46vw, 560px); aspect-ratio: 1;
+  right: -8vw; top: -6vw;
+  background:
+    radial-gradient(rgba(224, 51, 47, 0.85) 1.1px, transparent 1.2px) 0 0 / 6px 6px,
+    radial-gradient(circle at 50% 50%, rgba(224, 51, 47, 0.35), rgba(224, 51, 47, 0) 70%);
+}
+.blob--b {
+  width: min(30vw, 340px); aspect-ratio: 1;
+  right: 18vw; top: 16vw;
+  background:
+    radial-gradient(rgba(22, 38, 74, 0.7) 1px, transparent 1.1px) 0 0 / 7px 7px;
+  opacity: 0.5;
+}
+
+.hero__inner { position: relative; z-index: 2; }
+
+.kicker {
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--crimson);
+  margin: 0 0 clamp(1.25rem, 3vw, 2rem);
+}
+
+.hero__title {
+  font-family: var(--display);
+  font-size: clamp(3.4rem, 13vw, 11rem);
+  line-height: 0.82;
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+  margin: 0;
+}
+.hero__title span { display: block; }
+.hero__title span:nth-child(2) {
+  color: var(--crimson);
+  mix-blend-mode: multiply;
+  margin-left: 0.06em;
+}
+.hero__title span:nth-child(3) { text-shadow: 3px 3px 0 rgba(224, 51, 47, 0.9); }
+
+/* Pushed to the right against the flush-left title: the empty zone under the
+   display type is the point, not an accident. */
+.hero__theme {
+  font-family: var(--mono);
+  font-size: clamp(0.85rem, 1.5vw, 1.05rem);
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  margin: clamp(1.5rem, 3vw, 2.25rem) 0 0 auto;
+  max-width: 44ch;
+  padding-left: 1.25rem;
+  border-left: 3px solid var(--crimson);
+}
+
+.hero__strip {
+  display: flex; flex-wrap: wrap; gap: 0;
+  margin: clamp(1.75rem, 4vw, 2.75rem) 0 0;
+  border: 2px solid var(--navy);
+  background: var(--crimson);
+  color: var(--paper);
+}
+.hero__strip span {
+  font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 0.75rem 1.15rem;
+  border-right: 2px solid var(--navy);
+}
+.hero__strip span:last-child { border-right: 0; }
+
+.hero__cta { margin: clamp(1.75rem, 4vw, 2.5rem) 0 0; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+.btn {
+  display: inline-block; font-family: var(--mono); font-size: 0.75rem;
+  letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+  padding: 0.9rem 1.4rem; background: var(--navy); color: var(--paper);
+  border: 2px solid var(--navy);
+  box-shadow: 4px 4px 0 var(--crimson);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--crimson); }
+.btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--crimson); }
+
+.btn--line { background: transparent; color: var(--navy); box-shadow: 4px 4px 0 var(--navy); }
+.btn--line:hover { box-shadow: 2px 2px 0 var(--navy); }
+
+.hero__figure { margin: clamp(2.5rem, 6vw, 4rem) auto 0; }
+
+/* Source is 800 x 500, so cap the height rather than stretch it into a
+   letterbox it does not have the pixels for. */
+.hero__img {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  max-height: 460px;
+  object-fit: cover;
+  object-position: center 55%;
+  display: block;
+  border: 2px solid var(--navy);
+  box-shadow: 10px 10px 0 var(--crimson);
+}
+
+/* -------------------------------------------------------------- bands */
+
+.band { padding-block: clamp(3.5rem, 8vw, 6.5rem); border-top: 2px solid var(--navy); }
+.band--tint { background: var(--paper-2); }
+.band--ink { background: var(--navy); color: var(--paper); }
+.band--ink .band__title { color: var(--paper); }
+.band--ink .band__title::before { background: var(--crimson); }
+
+.band__title {
+  font-family: var(--display);
+  font-size: clamp(1.9rem, 4.5vw, 3.4rem);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  position: relative;
+  padding-left: 1.6rem;
+}
+.band__title::before {
+  content: ""; position: absolute; left: 0; top: 0.18em; bottom: 0.18em;
+  width: 8px; background: var(--crimson);
+}
+
+.band__note {
+  font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.06em;
+  color: var(--mute); margin: -1rem 0 2rem; padding-left: 1.6rem;
+}
+
+.lede { font-size: clamp(1.1rem, 1.4vw, 1.35rem); line-height: 1.45; }
+
+/* ------------------------------------------------------------- ledger */
+
+.ledger { margin: 0; border-top: 2px solid var(--navy); }
+.ledger > div {
+  display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: 0.5rem clamp(1rem, 3vw, 2.5rem);
+  padding: 1rem 0; border-bottom: 1px solid rgba(22, 38, 74, 0.25);
+}
+.ledger dt {
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--crimson); padding-top: 0.2rem;
+}
+.ledger dd { margin: 0; font-weight: 500; max-width: 62ch; }
+.ledger .sub { font-weight: 400; color: var(--mute); font-size: 0.92rem; }
+.ledger a { color: var(--navy); text-decoration-color: var(--crimson); text-underline-offset: 3px; }
+
+/* --------------------------------------------------------------- cols */
+
+/* Uneven measure, and the second column drops — reading rhythm over symmetry. */
+.cols {
+  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+}
+.cols > div:last-child { margin-top: clamp(0rem, 4vw, 3rem); }
+
+.impact {
+  display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1rem, 2.5vw, 2rem);
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+.impact li:nth-child(2) { margin-top: 1.75rem; }
+.impact li:nth-child(3) { margin-top: 3.5rem; }
+.impact li { border-top: 2px solid var(--navy); padding-top: 1rem; }
+.impact span {
+  font-family: var(--display); font-size: 2rem; color: var(--crimson); display: block;
+  line-height: 1; margin-bottom: 0.5rem;
+}
+.impact h3 { font-size: 1.05rem; font-family: var(--sans); font-weight: 700; margin-bottom: 0.4rem; }
+.impact p { font-size: 0.93rem; color: var(--mute); }
+
+/* ------------------------------------------------------------ modules */
+
+.modules { margin-top: clamp(1rem, 2vw, 1.5rem); }
+.module {
+  display: grid; grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: clamp(1rem, 2.5vw, 2rem);
+  padding: clamp(1.25rem, 3vw, 2rem) 0;
+  border-top: 2px solid var(--navy);
+}
+.module:last-of-type { border-bottom: 2px solid var(--navy); }
+.module__num {
+  font-family: var(--display); font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  line-height: 0.9; color: var(--crimson); margin: 0;
+  text-shadow: 2px 2px 0 rgba(22, 38, 74, 0.25);
+}
+.module h3 {
+  font-family: var(--sans); font-weight: 700;
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  margin-bottom: 0.9rem; max-width: 26ch;
+}
+.module ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.3rem 2rem; }
+.module li { font-size: 0.94rem; color: var(--mute); padding-left: 1.1rem; position: relative; }
+.module li::before {
+  content: ""; position: absolute; left: 0; top: 0.62em; width: 0.6rem; height: 3px;
+  background: var(--crimson);
+}
+
+.sub-title {
+  font-family: var(--display); text-transform: uppercase;
+  font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+  margin: clamp(2.5rem, 5vw, 3.5rem) 0 1.25rem;
+}
+
+/* Two columns of unequal width, right column indented behind a rule — the
+   three-equal-boxes feature row is exactly the pattern to avoid. */
+.format { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 0 clamp(1.5rem, 3vw, 3rem); }
+.format li { border-top: 1px solid rgba(22, 38, 74, 0.3); padding: 1.1rem 0; }
+.format li:nth-child(even) { padding-left: clamp(0.75rem, 2vw, 1.75rem); border-left: 1px solid rgba(22, 38, 74, 0.3); }
+.format h4 { font-family: var(--sans); font-size: 1rem; font-weight: 700; margin-bottom: 0.35rem; }
+.format p { font-size: 0.9rem; color: var(--mute); }
+
+/* ------------------------------------------------------------- people */
+
+/* Photographs stay in full colour. Only the lift is interactive — transform
+   lives on the image, not the list item, so it cannot fight the reveal
+   animation's own transform. */
+.portrait {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+  border: 2px solid var(--navy);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+.person:hover .portrait {
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0 var(--crimson);
+}
+
+/* Staggered baseline, not a flat row. margin, never transform. */
+.people { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(1.25rem, 2.5vw, 1.75rem); align-items: start; }
+.people > li:nth-child(even) { margin-top: clamp(0.75rem, 2.5vw, 2.25rem); }
+.people--org { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.people--org > li:nth-child(3n + 2) { margin-top: clamp(0.75rem, 2.5vw, 2.25rem); }
+.person h3 { font-family: var(--sans); font-size: 0.98rem; font-weight: 700; margin: 0.75rem 0 0.15rem; }
+.person p {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--mute); line-height: 1.4;
+}
+
+/* --------------------------------------------------------------- quad */
+
+.quad { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(1rem, 2.5vw, 2rem); align-items: start; }
+.quad article { border-top: 2px solid var(--navy); padding-top: 1rem; }
+.quad article:nth-child(2) { margin-top: 1.5rem; }
+.quad article:nth-child(4) { margin-top: 2.5rem; }
+.quad__num {
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em;
+  color: var(--crimson); margin-bottom: 0.6rem;
+}
+.quad h3 { font-family: var(--sans); font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem; }
+.quad p { font-size: 0.93rem; color: var(--mute); }
+
+/* ---------------------------------------------------------------- map */
+
+.map { margin: clamp(2rem, 4vw, 3rem) 0 0; }
+.map iframe {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  min-height: 280px;
+  display: block;
+  border: 2px solid var(--navy);
+  box-shadow: 8px 8px 0 var(--crimson);
+}
+.map figcaption {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 1.5rem;
+  margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid rgba(22, 38, 74, 0.3);
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--mute);
+}
+.map figcaption a { color: var(--crimson); }
+
+/* ------------------------------------------------------------- notice */
+
+.notice {
+  border: 2px solid var(--navy);
+  box-shadow: 8px 8px 0 var(--crimson);
+  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  max-width: 62ch;
+}
+.notice__flag {
+  display: inline-block; background: var(--crimson); color: var(--paper);
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em;
+  text-transform: uppercase; padding: 0.35rem 0.7rem; margin-bottom: 1rem;
+}
+.notice__text { font-size: clamp(1.05rem, 1.4vw, 1.2rem); line-height: 1.5; }
+.notice__cta { margin-top: 1.5rem; }
+.notice__meta {
+  margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid rgba(22, 38, 74, 0.25);
+  font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.05em;
+}
+
+/* -------------------------------------------------------------- logos */
+
+/* Logos keep their own proportions — normalised by height, never forced into a
+   shared box. Each sits on a paper plate so dark marks stay legible on the
+   navy band. */
+.logos { display: flex; flex-wrap: wrap; align-items: stretch; gap: clamp(1rem, 2.5vw, 2rem); }
+
+.logos a {
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(0.8rem, 1.6vw, 1.1rem) clamp(1rem, 2vw, 1.4rem);
+  background: var(--paper);
+  border: 2px solid var(--navy);
+  box-shadow: 5px 5px 0 var(--crimson);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.logos a:hover { transform: translate(2px, 2px); box-shadow: 3px 3px 0 var(--crimson); }
+.logos a:active { transform: translate(5px, 5px); box-shadow: 0 0 0 var(--crimson); }
+
+/* Every mark sits at one fixed height; width follows its own ratio. */
+.logo {
+  display: block;
+  height: clamp(46px, 4.4vw, 62px);
+  width: auto;
+  max-width: 100%;
+}
+
+/* ------------------------------------------------------------- footer */
+
+.foot { background: var(--navy); color: var(--paper); padding-top: clamp(2.5rem, 5vw, 4rem); }
+.foot__inner {
+  display: grid; grid-template-columns: minmax(0, 3fr) repeat(3, minmax(0, 3fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem); padding-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+.foot__mark { font-family: var(--display); font-size: 2.2rem; text-transform: uppercase; margin: 0; }
+.foot__mark span { color: var(--crimson); }
+.foot__label {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--crimson); margin-bottom: 0.6rem;
+}
+.foot__inner p:not(.foot__label):not(.foot__mark) { font-size: 0.9rem; line-height: 1.55; color: rgba(242, 239, 228, 0.8); }
+.foot a { color: var(--paper); }
+
+.foot__base {
+  border-top: 1px solid rgba(242, 239, 228, 0.25);
+  padding-block: 1.1rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+}
+.foot__base p {
+  margin: 0; font-family: var(--mono); font-size: 0.68rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: rgba(242, 239, 228, 0.7);
+}
+
+/* ------------------------------------------------------------- reveal */
+
+.js .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.js .reveal.is-in { opacity: 1; transform: none; }
+
+[id] { scroll-margin-top: calc(var(--nav-h) + 24px); }
+
+/* --------------------------------------------------------- responsive */
+
+@media (max-width: 1100px) {
+  .spine { display: none; }
+  .people { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .quad { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .quad article:nth-child(2), .quad article:nth-child(4) { margin-top: 0; }
+  .format { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .foot__inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero__theme { margin-left: 0; }
+  .cols > div:last-child { margin-top: 0; }
+}
+
+@media (max-width: 760px) {
+  .nav__toggle { display: block; }
+  .nav__menu {
+    position: absolute; top: var(--nav-h); left: 0; right: 0;
+    background: var(--paper); border-bottom: 2px solid var(--navy);
+    flex-direction: column; gap: 0; padding: 0.25rem var(--gutter) 1rem; display: none;
+  }
+  .nav__menu.is-open { display: flex; }
+  .nav__menu a { padding: 0.7rem 0; border-bottom: 1px solid rgba(22, 38, 74, 0.2); }
+
+  .hero__strip span { border-right: 0; border-bottom: 2px solid var(--navy); width: 100%; }
+  .hero__strip span:last-child { border-bottom: 0; }
+  /* Asymmetry is a desktop device; phones get one strict column. */
+  .cols { grid-template-columns: 1fr; }
+  .impact { grid-template-columns: 1fr; }
+  .impact li:nth-child(2), .impact li:nth-child(3) { margin-top: 0; }
+  .ledger > div { grid-template-columns: 1fr; }
+  .module { grid-template-columns: 1fr; gap: 0.6rem; }
+  .module ul { grid-template-columns: 1fr; }
+  .format { grid-template-columns: 1fr; }
+  .format li:nth-child(even) { padding-left: 0; border-left: 0; }
+  .people, .people--org { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .people > li:nth-child(even), .people--org > li:nth-child(3n + 2) { margin-top: 0; }
+  .quad { grid-template-columns: 1fr; }
+  .logos li { flex: 1 1 40%; }
+  .logos a { width: 100%; }
+  .foot__inner { grid-template-columns: 1fr; }
+  .btn { width: 100%; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.001ms !important; animation-duration: 0.001ms !important; }
+  .js .reveal { opacity: 1; transform: none; }
+}
