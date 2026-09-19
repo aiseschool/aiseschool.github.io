@@ -11,19 +11,20 @@ Plain HTML, CSS and one small JavaScript file. No build step, no npm, no
 framework. Push to `main` and GitHub Pages serves it within a minute.
 
 ```
-index.html              the live site — riso print design
+index.html              the live site — modernist design
 css/style.css           its design tokens and layout
 js/main.js              mobile nav, scroll-spy, fade-in on scroll
 assets/img/             photographs and logos (see manifest below)
-preview/index.html      compares the live design with the alternative
+preview/index.html      compares the live design with the alternatives
+preview/riso/           riso print design (previously live), kept as an alternative
 preview/glacier/        glacier editorial design, kept as an alternative
 preview/shared/main.js  the same behaviour script, for the preview pages
 .nojekyll               tells GitHub Pages to serve files as-is
 ```
 
-The design is the **riso print** direction: navy and crimson inks on newsprint,
-halftone texture, Anton display type. The glacier editorial version is kept
-under `preview/` and is not linked from the live site.
+The design is the **modernist** direction: one ink on warm grey, a single signal
+red, 2px rules, Archivo throughout. The riso print and glacier editorial versions are kept under
+`preview/` and are not linked from the live site.
 
 To preview locally, open `index.html` in a browser. That is the whole workflow.
 
@@ -79,9 +80,9 @@ with an `<img>`:
 | Monash University logo | `assets/img/logos/Monash-300x300.png` | any ratio | **Done** — links to monash.edu |
 | IIIT Bangalore logo | `assets/img/logos/IIITB_logo1.png` | any ratio | **Done** — links to iiitb.ac.in |
 
-All four logos render at one fixed height (`.logo { height: clamp(46px, 4.4vw,
-60px); width: auto }`), so every mark lines up on the same baseline while each
-keeps its own width. Never crop a logo to a shared ratio. To add another
+Each logo fills its white box (`.logos img { object-fit: contain }`), keeping
+its own ratio. The Monash file has a lot of empty space around the mark, so it
+is wrapped in `<span class="logo-crop">` to crop to the mark itself. To add another
 sponsor, copy an existing `<li>` in the sponsors list and point it at the new
 file — no sizing work needed.
 
@@ -96,11 +97,12 @@ wide screen. Currently under that: `Sridhar_Chimalakonda.jpg` (200 × 240),
 
 ## Design variants
 
-`preview/index.html` compares the live design with the glacier editorial
-alternative kept in `preview/glacier/`. The two share nothing but
-`preview/shared/main.js`, so editing one never touches the other. Note that
-edits to the live site do **not** propagate to the glacier copy — if it ever
-needs to be promoted, its content has to be brought up to date first.
+`preview/index.html` compares the live design with the riso print and glacier
+editorial alternatives kept in `preview/riso/` and `preview/glacier/`. The
+previews share nothing but `preview/shared/main.js`, so editing one never
+touches another. Note that edits to the live site do **not** propagate to the
+preview copies — if one ever needs to be promoted, its content has to be
+brought up to date first.
 
 ## Still to be confirmed
 
